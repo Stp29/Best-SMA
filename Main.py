@@ -1,7 +1,7 @@
 import yfinance
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import math
 from scipy.stats import ttest_ind
 
 name = 'DVAX'
@@ -32,13 +32,14 @@ for daysToHoldStock in range(1,200):
         mean_forward_return_test = test_returns.mean()
         pvalue = ttest_ind(tr_returns, test_returns, equal_var=False)[1]
 
-        result.append({
-            'days-to-hold': daysToHoldStock,
-            'sma_length': sma_length,
-            'training_forward_return': mean_forward_return_training,
-            'test_forward_return': mean_forward_return_test,
-            'p-value': pvalue
-        })
+        if math.isnan(pvalue) == False and pvalue > 0.05:
+            result.append({
+                'days-to-hold': daysToHoldStock,
+                'sma_length': sma_length,
+                'training_forward_return': mean_forward_return_training,
+                'test_forward_return': mean_forward_return_test,
+                'p-value': pvalue
+            })
 
     result.sort(key = lambda x : -x['training_forward_return'])
 
