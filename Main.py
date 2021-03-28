@@ -43,7 +43,8 @@ for daysToHoldStock in range(1,200):
 
     result.sort(key = lambda x : -x['training_forward_return'])
 
-    printResult.append(result[0])
+    if len(result) >= 1:
+        printResult.append(result[0])
 
 for p in printResult:
     print(p)
