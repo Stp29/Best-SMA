@@ -32,7 +32,7 @@ for daysToHoldStock in range(1,200):
         mean_forward_return_test = test_returns.mean()
         pvalue = ttest_ind(tr_returns, test_returns, equal_var=False)[1]
 
-        if math.isnan(pvalue) == False and pvalue > 0.05:
+        if math.isnan(pvalue) == False and pvalue > 0.05 and mean_forward_return_training > 0:
             result.append({
                 'days-to-hold': daysToHoldStock,
                 'sma_length': sma_length,
